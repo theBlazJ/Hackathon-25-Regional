@@ -12,10 +12,10 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("API key not found. Set 'OPENAI_API_KEY' as an environment variable.")
 
-# Initialize OpenAI client
+
 client = OpenAI(api_key=api_key)
 
-# Function to get time-based greeting
+
 def get_time_based_greeting():
     current_hour = datetime.datetime.now().hour
     if 5 <= current_hour < 12:
@@ -27,14 +27,14 @@ def get_time_based_greeting():
     else:
         return "Good night!"
 
-# Function to select files
+
 def select_files():
     root = tk.Tk()
     root.withdraw()
     file_paths = filedialog.askopenfilenames(filetypes=[("Text files", "*.txt"), ("PDF files", "*.pdf")])
     return file_paths
 
-# Function to read file contents
+
 def read_file(file_path):
     if file_path.endswith(".txt"):
         with open(file_path, "r", encoding="utf-8") as file:
@@ -100,7 +100,7 @@ if __name__ == "__main__":
             token_estimate = estimate_tokens(content)
             print(f"Processing {file_path} (Estimated Tokens: {token_estimate})...\n")
             
-            # AI Processing
+            
             system_message = {"role": "system", "content": "You assist teachers in grading assignments fairly and efficiently."}
             completion = client.chat.completions.create(
                 model="gpt-4o-2024-05-13",
@@ -110,7 +110,7 @@ if __name__ == "__main__":
             feedback = completion.choices[0].message.content
             print(f"Feedback for {file_path}:\n{feedback}\n")
             
-            # Export feedback option
+            
             save_option = input("Save feedback to file? (yes/no): ").strip().lower()
             if save_option == "yes":
                 with open(file_path + "_feedback.txt", "w", encoding="utf-8") as f:
