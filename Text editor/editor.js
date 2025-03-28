@@ -3,7 +3,7 @@ $(document).ready(function(){
     let advancedOptionButton = $(".adv-option-button");
     let fontName = $("#fontName");
     let fontSize = $("#fontSize");
-    let writingArea = $("text-input");
+    let writingArea = $("#text-input");
     let linkButton = $("#createLink");
     let alignButton = $(".align");
     let spacingButton = $(".spacing");
@@ -48,7 +48,7 @@ $(document).ready(function(){
         modifyText($(this).attr("id"), false, $(this).val());
     });
     advancedOptionButton.on("change", function(){
-        modifyText($(this).attr("id", false, $(this).val()));
+        modifyText($(this).attr("id"), false, $(this).val());
     });
 
     linkButton.on("click", function(){
@@ -83,5 +83,5 @@ $(document).ready(function(){
         className.removeClass("active");
     };
 
-    window.onload = initializer();
+    window.onload = initializer;
 });
