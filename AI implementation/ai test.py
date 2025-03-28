@@ -1,8 +1,11 @@
 import os
-import tiktoken
 import tkinter as tk
 from tkinter import filedialog
+import PyPDF2
+import tiktoken
+import speech_recognition as sr
 from openai import OpenAI
+import datetime
 
 # Retrieve API key securely
 api_key = os.getenv("OPENAI_API_KEY")
@@ -12,99 +15,115 @@ if not api_key:
 # Initialize OpenAI client
 client = OpenAI(api_key=api_key)
 
-# Function to count tokens in a string
-def count_tokens(text, model="gpt-4o"):
-    """Returns the number of tokens in a given text."""
-    enc = tiktoken.encoding_for_model(model)
+# Function to get time-based greeting
+def get_time_based_greeting():
+    current_hour = datetime.datetime.now().hour
+    if 5 <= current_hour < 12:
+        return "Good morning!"
+    elif 12 <= current_hour < 17:
+        return "Good afternoon!"
+    elif 17 <= current_hour < 22:
+        return "Good evening!"
+    else:
+        return "Good night!"
+
+# Function to select files
+def select_files():
+    root = tk.Tk()
+    root.withdraw()
+    file_paths = filedialog.askopenfilenames(filetypes=[("Text files", "*.txt"), ("PDF files", "*.pdf")])
+    return file_paths
+
+# Function to read file contents
+def read_file(file_path):
+    if file_path.endswith(".txt"):
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read()
+    elif file_path.endswith(".pdf"):
+        with open(file_path, "rb") as file:
+            reader = PyPDF2.PdfReader(file)
+            return "\n".join([page.extract_text() for page in reader.pages if page.extract_text()])
+    return ""
+
+
+def estimate_tokens(text):
+    enc = tiktoken.get_encoding("cl100k_base")
     return len(enc.encode(text))
 
-# Function to count tokens in a file
-def count_tokens_in_file(file_path, model="gpt-4o"):
-    """Counts tokens in a text file."""
-    try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            text = file.read()
-            print(f"Read {len(text)} characters from the file.")
-        return count_tokens(text, model), text
-    except FileNotFoundError:
-        print(f"Error: The file at {file_path} does not exist.")
-        return 0, ""
-    except Exception as e:
-        print(f"Error reading file: {e}")
-        return 0, ""
 
-# Function to open file dialog
-def select_file():
-    """Opens a file dialog and returns the selected file path."""
-    root = tk.Tk()
-    root.withdraw()  # Hide the root window
-    file_path = filedialog.askopenfilename(
-        title="Select a text file",
-        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
+def speech_to_text():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something...")
+        audio = recognizer.listen(source)
+    try:
+        return recognizer.recognize_google(audio)
+    except sr.UnknownValueError:
+        return "Could not understand audio."
+    except sr.RequestError:
+        return "Could not request results. Check internet connection."
+
+
+def generate_quiz(content):
+    quiz_prompt = f"Generate a 5-question quiz based on the following content: {content[:1000]}"
+    response = client.chat.completions.create(
+        model="gpt-4o-2024-05-13",
+        messages=[{"role": "system", "content": "You generate educational quizzes based on given text."},
+                  {"role": "user", "content": quiz_prompt}]
     )
-    return file_path
+    return response.choices[0].message.content
 
-# Ask user to select a file using Tkinter
-print("Select a file to upload (or cancel to skip).")
-file_path = select_file()
 
-# Check if the user selected a file
-file_tokens = 0
-file_text = ""
-if file_path:
-    print(f"Selected file: {file_path}")
-    file_tokens, file_text = count_tokens_in_file(file_path)
-    if file_tokens == 0:
-        print("No valid file content found.")
+def show_help():
+    help_text = """ 
+    EduNova Chatbot Features:
+    1️⃣ **Rubric Upload:** Upload grading rubrics (TXT/PDF) for AI-assisted grading.
+    2️⃣ **Bulk Grading:** Select multiple student assignments for quick evaluation.
+    3️⃣ **Export Feedback:** Save feedback as TXT, CSV, or PDF.
+    4️⃣ **Speech-to-Text:** Use voice input instead of typing prompts.
+    5️⃣ **Quiz Generation:** AI creates quizzes based on uploaded material.
+    """
+    print(help_text)
+
+
+if __name__ == "__main__":
+    greeting = get_time_based_greeting()
+    print(f"{greeting} Welcome to EduNova! Type 'help' for a list of features.")
+    user_choice = input("Would you like to upload a file for grading? (yes/no/help): ").strip().lower()
+
+    if user_choice == "help":
+        show_help()
+    elif user_choice == "yes":
+        files = select_files()
+        for file_path in files:
+            content = read_file(file_path)
+            token_estimate = estimate_tokens(content)
+            print(f"Processing {file_path} (Estimated Tokens: {token_estimate})...\n")
+            
+            # AI Processing
+            system_message = {"role": "system", "content": "You assist teachers in grading assignments fairly and efficiently."}
+            completion = client.chat.completions.create(
+                model="gpt-4o-2024-05-13",
+                messages=[system_message, {"role": "user", "content": content}]
+            )
+            
+            feedback = completion.choices[0].message.content
+            print(f"Feedback for {file_path}:\n{feedback}\n")
+            
+            # Export feedback option
+            save_option = input("Save feedback to file? (yes/no): ").strip().lower()
+            if save_option == "yes":
+                with open(file_path + "_feedback.txt", "w", encoding="utf-8") as f:
+                    f.write(feedback)
+                print(f"Feedback saved as {file_path}_feedback.txt")
     else:
-        print(f"File token estimate: {file_tokens} tokens")
-else:
-    print("No file selected.")
+        user_prompt = input("Enter your prompt (or say 'voice' for speech input): ")
+        if user_prompt.lower() == "voice":
+            user_prompt = speech_to_text()
 
-# Get user prompt
-user_prompt = input("Enter your prompt: ")
-
-# Count tokens for user input
-user_prompt_tokens = count_tokens(user_prompt)
-print(f"User prompt token estimate: {user_prompt_tokens} tokens")
-
-# Define system message
-system_message = {
-    "role": "system",
-    "content": "You are EduNova, an AI assistant designed to help teachers grade student assignments efficiently and fairly. Your role is to evaluate responses based on provided rubrics, answer keys, or general academic standards while maintaining a constructive and supportive tone. When assessing work, consider accuracy, clarity, depth of analysis, creativity (if applicable), and adherence to instructions. Provide detailed feedback highlighting strengths and areas for improvement, and suggest actionable steps for students to enhance their learning. If an answer is subjective, provide reasoned judgment while acknowledging alternative perspectives. Maintain neutrality, avoiding bias, and ensure consistency in grading. When uncertain, ask clarifying questions or suggest that the teacher review specific points. Your goal is to assist teachers in streamlining the grading process while promoting student growth and learning."
-}
-
-# Estimate total tokens before sending
-total_tokens = file_tokens + user_prompt_tokens
-print(f"Estimated total tokens: {total_tokens}")
-
-# Token limit (adjust based on OpenAI plan)
-TOKEN_LIMIT = 100_000  # Adjust this based on your OpenAI plan
-
-# Check if the total tokens exceed the limit
-if total_tokens < TOKEN_LIMIT:
-    # Construct the messages for the API request
-    messages = [system_message, {"role": "user", "content": user_prompt}]
-    
-    # Include file content if provided
-    if file_text:
-        messages.append({"role": "user", "content": f"Attached file content:\n{file_text}"})
-    
-    print("\nMaking API request with the following messages:")
-    for message in messages:
-        print(f"{message['role']}: {message['content'][:100]}...")  # Print first 100 characters
-
-    try:
-        # Make the API request
+        system_message = {"role": "system", "content": "You assist teachers in grading and educational support."}
         completion = client.chat.completions.create(
-            model="gpt-4o-2024-05-13",  # Use O1 Mini
-            messages=messages
+            model="gpt-4o-2024-05-13",
+            messages=[system_message, {"role": "user", "content": user_prompt}]
         )
-
-        # Print the AI response
-        print("\nAI Response:\n", completion.choices[0].message.content)
-
-    except Exception as e:
-        print(f"Error with OpenAI API request: {e}")
-else:
-    print("Token limit exceeded! Consider summarizing your input or reducing file size.")
+        print(completion.choices[0].message.content)
