@@ -7,7 +7,46 @@
   </head>
   <body>
     <h1 id="title">Settings</h1>
-    <p id="description">here you can toggle settings</p>
+    <h3 id="description">Here you can toggle settings</h3>
+    Mode:<input type="radio" id="mode" name="mode" value="lightmode" checked >light
+    <input type="radio" id="mode" name="mode" value="darkmode">dark
+    <br>
+    <label for="dropdown1">Notfications for assignments</label>
+    <select id="dropdown1" name="dropdown1">
+        <option value="option1">1 week earlier</option>
+        <option value="option2">2 weeks earliers</option>
+        <option value="option3">Every week before</option>
+        <option value="option4">Never</option>
+    </select>
+
+  <br><br>
     
-  </body>
+    <fieldset>
+      <h2>Acessibility</h2>
+      <label for="dropdown2">Font:</label>
+      <select id="dropdown2" name="dropdown2">
+        <option value="optionA">normal</option>
+        <option value="optionB">Consolas</option>
+        <option value="optionC">Times New Roman</option>
+      </select> <br><br>
+      <label for="dropdown3">Text size:</label>
+      <select id="dropdown3" name="dropdown2">
+        <option value="optionM">medium</option>
+        <option value="optionN">small</option>
+        <option value="optionO">large</option>
+      </select> <br><br>
+      <label for="dropdown4">Color blind mode:</label>
+      <select id="dropdown4" name="dropdown2">
+        <option value="optionW">false</option>
+        <option value="optionX">Deuteranopic</option>
+        <option value="optionY">Protanopic</option>
+        <option value="optionZ">Tritanopic</option>
+      </select>
+    </fieldset>
+    <br>
+    <label><input type="submit" id="submit"></label>
+
+    
+
+</body>
 </html>
