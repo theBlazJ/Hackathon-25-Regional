@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+  }
+  header {
+    background-color: #28a745;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+  }
+  .assignments-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  .assignment-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  .assignment-card.submitted {
+    background-color: #e0ffe0;
+  }
+  .assignment-card h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+  }
+  .assignment-card .description {
+    font-size: 1em;
+    color: #333;
+    margin: 10px 0;
+  }
+  .assignment-card .due-date {
+    font-size: 0.9em;
+    color: #555;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  .assignment-card .countdown {
+    font-size: 0.9em;
+    color: #d9534f;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+  }
+  .submit-btn:hover:not(:disabled) {
+    background-color: #218838;
+  }
+  .submit-btn:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  .add-work-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+  }
+  .add-work-btn:hover:not(:disabled) {
+    background-color: #27ae60;
+  }
+  .add-work-btn:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  .work-form {
+    margin-top: 10px;
+  }
+  .work-form input[type="file"] {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .work-form button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .work-form button:hover {
+    background-color: #218838;
+  }
+  .file-display {
+    font-size: 0.9em;
+    color: #333;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-left: 3px solid #28a745;
+  }
+  footer {
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+  }
+  
