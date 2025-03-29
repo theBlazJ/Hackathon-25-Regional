@@ -1,0 +1,64 @@
+/* Make the grid full width */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 120px repeat(7, 1fr); /* Adjusted time column + 7 equal day columns */
+    width: 100%;  /* Ensure the grid uses the full width of the container */
+    max-width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Ensure day headers take up full width */
+.day-header {
+    padding: 15px;
+    font-weight: bold;
+    background: #e9ecef;
+    border-right: 2px solid #bbb;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;  /* Make sure it expands */
+}
+
+/* Ensure time labels are properly aligned */
+.time-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e0e0;
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #bbb;
+    width: 120px; /* Keep time column fixed */
+}
+
+/* Make sure each column is evenly spread */
+.schedule-body {
+    display: grid;
+    grid-template-columns: 120px repeat(7, 1fr); /* Make sure columns are evenly distributed */
+    grid-template-rows: repeat(24, 70px);
+    width: 100%;
+}
+
+/* Make sure slots are properly spread */
+.schedule-slot {
+    border: 1px solid #ddd;
+    cursor: pointer;
+    background: #fff;
+    transition: background 0.2s ease-in-out;
+    width: 100%;
+}
+
+/* Expand Activity Blocks */
+.activity {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #0056b3;
+    width: 100%; /* Ensures full slot width */
+}
