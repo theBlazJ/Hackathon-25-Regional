@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Text editor</title>
         <link 
             rel="stylesheet"
@@ -13,14 +13,18 @@
     
 
     <body>
-        <div>
+        
             <div class="container">
-                <button id="bold" class="option-button format">
-                    <i class="fa-solid fa-italic"></i>
-                </button>
-                <button id="italic" class="option-button format">
-                    <i class="fa-solid fa-italic"></i>
-                </button>
+                
+                <div class="option">
+                    <button id="bold" class="option-button format">
+                        <i class="fa-solid fa-bold"></i>
+                    </button>
+                    <button id="italic" class="option-button format">
+                        <i class="fa-solid fa-italic"></i>
+                    </button>
+                </div>
+
                 <button id="underline" class="option-button format">
                     <i class="fa-solid fa-underline"></i>
                 </button>
@@ -30,10 +34,10 @@
                 <button id="superscript" class="option-button format">
                     <i class="fa-solid fa-superscript"></i>
                 </button>
-                <button id="insertUnotderedList" class="option-button format">
+                <button id="insertUnorderedList" class="option-button format">
                     <i class="fa-solid fa-list-ol"></i>
                 </button>
-                <button id="insertOrderList" class="option-button format">
+                <button id="insertOrderedList" class="option-button format">
                     <i class="fa-solid fa-list-ol"></i>
                 </button>
                 <button id="undo" class="option-button">
@@ -49,7 +53,7 @@
                     <i class="fa fa-unlink"></i>
                 </button>
                 <button id="justifyLeft" class="option-button align">
-                    <i class="fa-solid fa align-left"></i>
+                    <i class="fa-solid fa-align-left"></i>
                 </button>
                 <button id="justifyCenter" class="option-button align">
                     <i class="fa-solid fa-align-center"></i>
@@ -84,12 +88,11 @@
                     <label for="foreColor">Font Color</label>
                 </div>
                 <div class="input-wrapper">
-                    <input type="color" id="BackColor" class="adv-option-button" />
+                    <input type="color" id="backColor" class="adv-option-button" />
                     <label for="BackColor"> Highlight Color</label>
                 </div>
             </div>
             <div id="text-input" contenteditable="true"></div>
-        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="editor.js"></script>
     </body>
