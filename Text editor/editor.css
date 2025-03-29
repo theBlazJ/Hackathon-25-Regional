@@ -46,6 +46,7 @@ body{
     border-radius: 4px;
     font-size: 16px;
     line-height: 1.5;
+    background-color: white;
 }
 .input-wrapper{
     display: flex;
