@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="accessibility.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">EduNova AI</a></li>
+                <li><a href="editor.html">Editor</a></li>
+                <li><a href="assignments.html">Assignments</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="scheduler.html">Scheduler</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Settings</h1>
+    <h2>Here you can toggle settings</h2>
+
+    <label>Username: <input id="user-name" type="text" required /></label>
+    <br>
+
+    <label>Mode:</label>
+    <input type="radio" name="mode" value="lightmode" checked> Light
+    <input type="radio" name="mode" value="darkmode"> Dark
+    <br>
+
+    <label>Notifications for assignments:</label>
+    <select id="notifications">
+        <option value="1week">1 week earlier</option>
+        <option value="2weeks">2 weeks earlier</option>
+        <option value="weekly">Every week before</option>
+        <option value="never">Never</option>
+    </select>
+
+    <br><br>
+
+    <fieldset>
+        <h3>Accessibility</h3>
+        <label for="fontSelector">Font:</label>
+        <select id="fontSelector">
+            <option value="Roboto">Default (Roboto)</option>
+            <option value="Consolas">Consolas</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select>
+        <br><br>
+
+        <label for="textSizeSelector">Text size:</label>
+        <select id="textSizeSelector">
+            <option value="medium">Medium</option>
+            <option value="small">Small</option>
+            <option value="large">Large</option>
+        </select>
+        <br><br>
+
+        <label for="colorBlindSelector">Color blind mode:</label>
+        <select id="colorBlindSelector">
+            <option value="none">None</option>
+            <option value="deuteranopia">Deuteranopia</option>
+            <option value="protanopia">Protanopia</option>
+            <option value="tritanopia">Tritanopia</option>
+        </select>
+    </fieldset>
+    <br>
+    
+    <button id="saveSettings">Save</button>
+</body>
+</html>

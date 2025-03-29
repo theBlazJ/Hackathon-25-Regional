@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High School Schedule</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .schedule-container { display: grid; grid-template-columns: 100px repeat(7, 1fr); }
+        .time-slot { background-color: #f4f4f4; font-weight: bold; text-align: center; padding: 5px; }
+        .schedule-cell { min-height: 50px; border: 1px solid black; position: relative; text-align: center; cursor: pointer; }
+        .schedule-cell span { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; }
+        .math { background-color: #ffcccb; }
+        .history { background-color: #add8e6; }
+        .sports { background-color: #90ee90; }
+        .thinking { background-color: #ffff99; }
+        .other { background-color: #d3d3d3; }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid black;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Scheduler</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">EduNova AI</a></li>
+                <li><a href="editor.html">Editor</a></li>
+                <li><a href="assignments.html">Assignments</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="scheduler.html">Scheduler</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+<h2>High School Schedule</h2>
+<div class="schedule-container" id="schedule-grid">
+    <div class="time-slot"></div>
+    <div class="time-slot">Monday</div>
+    <div class="time-slot">Tuesday</div>
+    <div class="time-slot">Wednesday</div>
+    <div class="time-slot">Thursday</div>
+    <div class="time-slot">Friday</div>
+    <div class="time-slot">Saturday</div>
+    <div class="time-slot">Sunday</div>
+</div>
+
+<div class="popup" id="popup">
+    <h3>Add Activity</h3>
+    <label>Activity: <input type="text" id="popup-activity" required></label>
+    <label>Type:
+        <select id="popup-activity-type">
+            <option value="math">Math</option>
+            <option value="history">History</option>
+            <option value="sports">Sports</option>
+            <option value="thinking">Thinking</option>
+            <option value="other">Other</option>
+        </select>
+    </label>
+    <button id="popup-save">Save</button>
+    <button id="popup-close">Cancel</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const scheduleGrid = document.getElementById("schedule-grid");
+        const popup = document.getElementById("popup");
+        const popupActivity = document.getElementById("popup-activity");
+        const popupActivityType = document.getElementById("popup-activity-type");
+        const popupSave = document.getElementById("popup-save");
+        const popupClose = document.getElementById("popup-close");
+        let selectedCell = null;
+        const scheduleKey = "schoolSchedule";
+
+        function generateScheduleGrid() {
+            scheduleGrid.innerHTML = '<div class="time-slot"></div>';
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            days.forEach(day => {
+                scheduleGrid.innerHTML += `<div class="time-slot">${day}</div>`;
+            });
+            for (let hour = 7; hour <= 20; hour++) {
+                scheduleGrid.innerHTML += `<div class="time-slot">${hour}:00</div>`;
+                days.forEach(() => {
+                    scheduleGrid.innerHTML += '<div class="schedule-cell"></div>';
+                });
+            }
+        }
+
+        function loadSchedule() {
+            generateScheduleGrid();
+            const savedSchedule = JSON.parse(localStorage.getItem(scheduleKey)) || [];
+            savedSchedule.forEach((entry) => {
+                addScheduleEntry(entry);
+            });
+            document.querySelectorAll(".schedule-cell").forEach(cell => {
+                cell.addEventListener("click", (event) => {
+                    selectedCell = event.target;
+                    popup.style.display = "block";
+                });
+            });
+        }
+
+        function addScheduleEntry(entry) {
+            const cells = document.querySelectorAll(".schedule-cell");
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const timeIndex = parseInt(entry.start.split(":")[0]) - 7;
+            const dayIndex = days.indexOf(entry.day);
+            if (timeIndex >= 0 && dayIndex >= 0) {
+                const cellIndex = (timeIndex * 7) + dayIndex + 7;
+                const cell = cells[cellIndex];
+                cell.innerHTML = `<span>${entry.activity}</span>`;
+                cell.classList.add(entry.type);
+            }
+        }
+
+        popupSave.addEventListener("click", () => {
+            if (selectedCell) {
+                const activity = popupActivity.value;
+                const type = popupActivityType.value;
+                selectedCell.innerHTML = `<span>${activity}</span>`;
+                selectedCell.classList.add(type);
+                popup.style.display = "none";
+                popupActivity.value = "";
+            }
+        });
+
+        popupClose.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        loadSchedule();
+    });
+</script>
+</body>
+</html>
