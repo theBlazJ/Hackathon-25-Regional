@@ -8,13 +8,13 @@ $(document).ready(function(){
     let alignButton = $(".align");
     let spacingButton = $(".spacing");
     let formatButton = $(".format");
-    let scriptButton = $("")
+    let scriptButton = $(".script")
 
 
     let fontList = [
         "Arial",
         "Verdana",
-        "Time New Roman",
+        "Times New Roman",
         "Garamond",
         "Georgia",
         "Courier New",
@@ -25,7 +25,6 @@ $(document).ready(function(){
         highlighter(alignButton, true);
         highlighter(scriptButton, true);
         highlighter(formatButton, true);
-        highlighter(scriptButton, true);
 
         fontList.map((value) => {
             let option = $("<option></option>").val(value).html(value);
@@ -37,16 +36,27 @@ $(document).ready(function(){
             fontSize.append(option);
         }
 
-        fontSizeRef.val(3);
+        fontSize.val(3);
     }
 
-    const modifyText = (command, deefaultUi, value) =>{
-        document.execCommand(command, deefaultUi, value);
+    const modifyText = (command, defaultUi, value) =>{
+        document.execCommand(command, defaultUi, value);
     }
 
-    optionButton.on("click", function(){
-        modifyText($(this).attr("id"), false, $(this).val());
+    $("#insertUnorderedList").on("click", function () {
+        modifyText("insertUnorderedList", false, null);
+        $(this).toggleClass("active");
     });
+    
+    $("#insertOrderedList").on("click", function () {
+        modifyText("insertOrderedList", false, null);
+        $(this).toggleClass("active");
+    });
+    
+    optionButton.on("click", function() {
+        $(this).toggleClass("active"); // Toggle active class
+        modifyText($(this).attr("id"), false, $(this).val());
+    });    
     advancedOptionButton.on("change", function(){
         modifyText($(this).attr("id"), false, $(this).val());
     });
@@ -71,8 +81,6 @@ $(document).ready(function(){
 
                 highlighterRemover(className);
                 if(!alreadyActive){
-                    $(this).addClass("active");
-                }else{
                     $(this).addClass("active");
                 }
             }
