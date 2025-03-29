@@ -31,7 +31,8 @@ body{
 }
 .option-button.active,
 .adv-option-button.active {
-    background-color: #bbb;
+    background-color: #aaa; /* Darker gray */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Adds slight glow */
 }
 
 .option-button:focus,
@@ -47,6 +48,8 @@ body{
     font-size: 16px;
     line-height: 1.5;
     background-color: white;
+    resize: both; /* Allows manual resizing */
+    overflow: auto; /* Ensures content remains visible */
 }
 .input-wrapper{
     display: flex;
