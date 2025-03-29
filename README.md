@@ -11,7 +11,8 @@ A major problem in today's society is the fragmentation of educational platforms
 - you can read your textbook with it,
 - you can get quizzed on your knowledge by ai,
 - you can make assignments in it,
-- you can even write exams in it 
+- you can even write exams in it
+
 This means a complete digitalization of education, and would greatly reduce the amount of paper used in education, saving millions of trees.
 But words aren't enough to truly show you what we have done. (we demonstrate the demo)
 
