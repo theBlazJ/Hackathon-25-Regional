@@ -43,16 +43,20 @@ $(document).ready(function(){
         document.execCommand(command, defaultUi, value);
     }
 
-    $("#insertUnorderedList").on("click", function(){
+    $("#insertUnorderedList").on("click", function () {
         modifyText("insertUnorderedList", false, null);
-    });
-    $("#insertOrderedList").on("click", function(){
-        modifyText("insertOrderedList", false, null);
+        $(this).toggleClass("active");
     });
     
-    optionButton.on("click", function(){
-        modifyText($(this).attr("id"), false, $(this).val());
+    $("#insertOrderedList").on("click", function () {
+        modifyText("insertOrderedList", false, null);
+        $(this).toggleClass("active");
     });
+    
+    optionButton.on("click", function() {
+        $(this).toggleClass("active"); // Toggle active class
+        modifyText($(this).attr("id"), false, $(this).val());
+    });    
     advancedOptionButton.on("change", function(){
         modifyText($(this).attr("id"), false, $(this).val());
     });
