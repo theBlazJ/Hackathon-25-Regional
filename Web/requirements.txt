@@ -1,3 +1,2 @@
-Flask
-openai
-pdfplumber
+node.js
+express fs

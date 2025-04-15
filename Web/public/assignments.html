@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduNova Assignments</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Upcoming Assignments</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">EduNova AI</a></li>
+                <li><a href="editor.html">Editor</a></li>
+                <li><a href="assignments.html">Assignments</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="scheduler.html">Scheduler</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Upcoming Assignments</h2>
+
+        <div class="assignment">
+            <h3>Math Homework</h3>
+            <p>Complete exercises 1-10 from Chapter 5.</p>
+            <p>Due: <span class="deadline" data-deadline="2025-04-10T23:59:59">April 10, 2025</span></p>
+            <input type="file" class="file-input">
+            <button class="submit-btn" onclick="submitAssignment(this, 'math')">Submit Assignment</button>
+            <p class="status"></p>
+        </div>
+
+        <div class="assignment">
+            <h3>Science Report</h3>
+            <p>Write a 2-page report on Newton’s Laws of Motion.</p>
+            <p>Due: <span class="deadline" data-deadline="2025-04-15T23:59:59">April 15, 2025</span></p>
+            <input type="file" class="file-input">
+            <button class="submit-btn" onclick="submitAssignment(this, 'science')">Submit Assignment</button>
+            <p class="status"></p>
+        </div>
+
+        <div class="assignment">
+            <h3>Italian Composition</h3>
+            <p>Scrivere un breve testo in italiano su "Le mie vacanze ideali".</p>
+            <p>Scadenza: <span class="deadline" data-deadline="2025-04-20T23:59:59">20 Aprile 2025</span></p>
+            <input type="file" class="file-input">
+            <button class="submit-btn" onclick="submitAssignment(this, 'italian')">Invia il Compito</button>
+            <p class="status"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EduNova</p>
+    </footer>
+
+    <script>
+        // Countdown Timer for Deadlines
+        function updateDeadlines() {
+            const deadlines = document.querySelectorAll(".deadline");
+            const now = new Date().getTime();
+
+            deadlines.forEach(deadline => {
+                const dueDate = new Date(deadline.getAttribute("data-deadline")).getTime();
+                const timeLeft = dueDate - now;
+
+                if (timeLeft <= 0) {
+                    deadline.innerHTML = "Deadline passed";
+                    deadline.style.color = "red";
+                } else {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    deadline.innerHTML = `Due in ${days} days`;
+                }
+            });
+        }
+
+        updateDeadlines();
+        setInterval(updateDeadlines, 60000); // Update every minute
+
+        // Assignment Submission Function
+        function submitAssignment(button, subject) {
+            const fileInput = button.previousElementSibling;
+            const statusText = button.nextElementSibling;
+            
+            if (fileInput.files.length === 0) {
+                statusText.innerHTML = "Please select a file before submitting.";
+                statusText.style.color = "red";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            formData.append("subject", subject);
+
+            fetch("http://localhost:5000/upload_grading", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                statusText.innerHTML = data.message;
+                statusText.style.color = "green";
+            })
+            .catch(error => {
+                statusText.innerHTML = "Error submitting assignment.";
+                statusText.style.color = "red";
+            });
+        }
+    </script>
+</body>
+</html>

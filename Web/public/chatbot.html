@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduNova AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>EduNova AI</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">EduNova AI</a></li>
+                <li><a href="editor.html">Editor</a></li>
+                <li><a href="assignments.html">Assignments</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="scheduler.html">Scheduler</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="chat-container">
+            <div id="chat-box">
+                <div id="chat"></div>
+            </div>
+            <div id="user-input">
+                <input type="text" id="message" placeholder="Type your message..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+            
+            <!-- Additional functionalities -->
+            <div class="chatbot-options">
+                <input type="file" id="file-upload" />
+                <button onclick="uploadFile()">Upload File</button>
+                <button onclick="gradePaper()">Grade Paper</button>
+                <button onclick="startSpeechToText()">Speech to Text</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>

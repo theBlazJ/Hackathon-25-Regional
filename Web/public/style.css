@@ -1,0 +1,178 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+/* General Body Styles */
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Accessibility: Dark Mode */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode a {
+    color: #4da6ff;
+}
+
+/* Accessibility: Text Size */
+.small-text {
+    font-size: 14px;
+}
+
+.large-text {
+    font-size: 20px;
+}
+
+/* Accessibility: Color Blind Modes */
+.deuteranopia img {
+    filter: sepia(100%) hue-rotate(190deg) saturate(50%);
+}
+
+.protanopia img {
+    filter: sepia(100%) hue-rotate(160deg) saturate(60%);
+}
+
+.tritanopia img {
+    filter: sepia(100%) hue-rotate(90deg) saturate(70%);
+}
+
+/* Accessibility: High Contrast Mode */
+.high-contrast {
+    background-color: black;
+    color: yellow;
+    border-color: yellow;
+}
+
+.high-contrast a {
+    color: cyan;
+}
+
+.high-contrast button {
+    background-color: yellow;
+    color: black;
+    border: 2px solid yellow;
+}
+
+/* Header & Navigation Bar */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #0056b3;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    transition: background 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background-color: #003366;
+    border-radius: 5px;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode Button */
+.dark-mode button {
+    background-color: #333;
+    color: white;
+    border: 1px solid white;
+}
+
+/* Text Editor */
+#toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#editor {
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-bottom: 10px;
+    }
+
+    main {
+        width: 95%;
+    }
+}

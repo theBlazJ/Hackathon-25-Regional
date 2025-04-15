@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(cors()); // Allow frontend requests
+app.use(cors()); // Allow public requests
 app.use(bodyParser.json()); // Parse JSON request bodies
 
 // In-memory storage (will later be replaced with a database)
