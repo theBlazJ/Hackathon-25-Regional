@@ -2,9 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="accessibility.js" defer></script>
+    <style>
+        :root {
+            --bg-light: #f5f5f5;
+            --bg-dark: #2f2f2f;
+            --text-light: #333;
+            --text-dark: #eee;
+            --primary: #4a90e2;
+            --accent: #50e3c2;
+        }
+        body {
+            font-family: Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        .reduced-motion * {
+            transition-duration: 0 !important;
+            animation-duration: 0 !important;
+        }
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        body.dark main {
+            background: #3a3a3a;
+        }
+        h1, h2, h3 { margin-top: 0; }
+        input[type="text"], select, button, input[type="color"] {
+            display: block;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        button {
+            background: var(--accent);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { opacity: 0.9; }
+        /* Color-blind filters */
+        .deuteranopia { filter: url('#deuteranopia'); }
+        .protanopia   { filter: url('#protanopia'); }
+        .tritanopia   { filter: url('#tritanopia'); }
+        /* Inline styling for radio options */
+        fieldset.theme-mode label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1rem;
+            width: auto;
+        }
+        fieldset.theme-mode input[type="radio"] {
+            margin-right: 0.5rem;
+            width: auto;
+        }
+    </style>
+    <!-- SVG filters for color-blind modes -->
+    <svg style="display:none">
+        <filter id="deuteranopia"><feColorMatrix type="matrix" values="0.625,0.7,0,0,0 0.7,0.625,0,0,0 0,0,1,0,0 0,0,0,1,0"/></filter>
+        <filter id="protanopia"><feColorMatrix type="matrix" values="0.567,0.433,0,0,0 0.558,0.442,0,0,0 0,0.242,0.758,0,0 0,0,0,1,0"/></filter>
+        <filter id="tritanopia"><feColorMatrix type="matrix" values="0.95,0.05,0,0,0 0,0.433,0.567,0,0 0,0.475,0.525,0,0 0,0,0,1,0"/></filter>
+    </svg>
 </head>
 <body>
     <header>
@@ -21,55 +120,179 @@
             </ul>
         </nav>
     </header>
-    <h1>Settings</h1>
-    <h2>Here you can toggle settings</h2>
-
-    <label>Username: <input id="user-name" type="text" required /></label>
-    <br>
-
-    <label>Mode:</label>
-    <input type="radio" name="mode" value="lightmode" checked> Light
-    <input type="radio" name="mode" value="darkmode"> Dark
-    <br>
-
-    <label>Notifications for assignments:</label>
-    <select id="notifications">
-        <option value="1week">1 week earlier</option>
-        <option value="2weeks">2 weeks earlier</option>
-        <option value="weekly">Every week before</option>
-        <option value="never">Never</option>
-    </select>
-
-    <br><br>
-
-    <fieldset>
-        <h3>Accessibility</h3>
-        <label for="fontSelector">Font:</label>
-        <select id="fontSelector">
-            <option value="Roboto">Default (Roboto)</option>
-            <option value="Consolas">Consolas</option>
-            <option value="Times New Roman">Times New Roman</option>
-        </select>
-        <br><br>
-
-        <label for="textSizeSelector">Text size:</label>
-        <select id="textSizeSelector">
-            <option value="medium">Medium</option>
-            <option value="small">Small</option>
-            <option value="large">Large</option>
-        </select>
-        <br><br>
-
-        <label for="colorBlindSelector">Color blind mode:</label>
-        <select id="colorBlindSelector">
-            <option value="none">None</option>
-            <option value="deuteranopia">Deuteranopia</option>
-            <option value="protanopia">Protanopia</option>
-            <option value="tritanopia">Tritanopia</option>
-        </select>
-    </fieldset>
-    <br>
-    
-    <button id="saveSettings">Save</button>
+    <main>
+        <h2>Customize Your Experience</h2>
+        <form id="settingsForm">
+            <!-- Existing Settings -->
+            <label for="userName">Username:</label>
+            <input id="userName" type="text" required />
+            <fieldset class="theme-mode">
+                <legend>Theme Mode</legend>
+                <label><input type="radio" name="mode" value="light" checked />Light</label>
+                <label><input type="radio" name="mode" value="dark" />Dark</label>
+            </fieldset>
+            <label for="notifications">Notifications for assignments:</label>
+            <select id="notifications">
+                <option value="1week">1 week earlier</option>
+                <option value="2weeks">2 weeks earlier</option>
+                <option value="weekly">Every week before</option>
+                <option value="never">Never</option>
+            </select>
+            <fieldset>
+                <legend>Accessibility</legend>
+                <label for="fontSelector">Font:</label>
+                <select id="fontSelector">
+                    <option value="Roboto">Default (Roboto)</option>
+                    <option value="Consolas">Consolas</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+                <label for="textSizeSelector">Text size:</label>
+                <select id="textSizeSelector">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+                <label for="colorBlindSelector">Color blind mode:</label>
+                <select id="colorBlindSelector">
+                    <option value="none">None</option>
+                    <option value="deuteranopia">Deuteranopia</option>
+                    <option value="protanopia">Protanopia</option>
+                    <option value="tritanopia">Tritanopia</option>
+                </select>
+            </fieldset>
+            <!-- New Settings -->
+            <fieldset>
+                <legend>Language & Locale</legend>
+                <label for="languageSelector">Language:</label>
+                <select id="languageSelector">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+                <label for="dateFormatSelector">Date format:</label>
+                <select id="dateFormatSelector">
+                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+                <label for="timezoneSelector">Time zone:</label>
+                <select id="timezoneSelector"></select>
+            </fieldset>
+            <fieldset>
+                <legend>Motion & Sound</legend>
+                <label><input type="checkbox" id="reducedMotion" /> Reduce motion (accessibility)</label>
+                <label><input type="checkbox" id="soundFeedback" /> Enable sound feedback</label>
+            </fieldset>
+            <fieldset>
+                <legend>Privacy & Storage</legend>
+                <label><input type="checkbox" id="sendUsageStats" /> Send anonymized usage stats</label>
+                <label for="autoSaveInterval">Auto-save drafts every:</label>
+                <select id="autoSaveInterval">
+                    <option value="off">Off</option>
+                    <option value="1">1 minute</option>
+                    <option value="5">5 minutes</option>
+                    <option value="10">10 minutes</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Appearance</legend>
+                <label for="accentColor">Accent color:</label>
+                <input type="color" id="accentColor" />
+            </fieldset>
+            <button type="button" id="saveSettings">Save Settings</button>
+        </form>
+    </main>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Populate timezone selector
+            const tzSelect = document.getElementById('timezoneSelector');
+            const timeZones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : [Intl.DateTimeFormat().resolvedOptions().timeZone];
+            timeZones.forEach(tz => {
+                const opt = document.createElement('option');
+                opt.value = tz;
+                opt.textContent = tz;
+                tzSelect.appendChild(opt);
+            });
+            const inputs = {
+                userName: document.getElementById('userName'),
+                mode: () => document.querySelector('input[name="mode"]:checked'),
+                notifications: document.getElementById('notifications'),
+                font: document.getElementById('fontSelector'),
+                textSize: document.getElementById('textSizeSelector'),
+                colorBlind: document.getElementById('colorBlindSelector'),
+                language: document.getElementById('languageSelector'),
+                dateFormat: document.getElementById('dateFormatSelector'),
+                timeZone: document.getElementById('timezoneSelector'),
+                reducedMotion: document.getElementById('reducedMotion'),
+                soundFeedback: document.getElementById('soundFeedback'),
+                sendUsageStats: document.getElementById('sendUsageStats'),
+                autoSave: document.getElementById('autoSaveInterval'),
+                accentColor: document.getElementById('accentColor'),
+            };
+            function applySettings(settings) {
+                // Theme
+                document.body.classList.toggle('dark', settings.mode === 'dark');
+                // Fonts & size
+                document.body.style.fontFamily = settings.font;
+                document.body.style.fontSize = { small: '14px', medium: '16px', large: '18px' }[settings.textSize];
+                // Color-blind
+                document.body.classList.remove('deuteranopia','protanopia','tritanopia');
+                if (settings.colorBlind !== 'none') document.body.classList.add(settings.colorBlind);
+                // Reduced motion
+                document.body.classList.toggle('reduced-motion', settings.reducedMotion);
+                // Accent color
+                document.documentElement.style.setProperty('--accent', settings.accentColor);
+                // Form values
+                inputs.userName.value = settings.userName;
+                document.querySelectorAll('input[name="mode"]').forEach(r => r.checked = r.value === settings.mode);
+                inputs.notifications.value = settings.notifications;
+                inputs.font.value = settings.font;
+                inputs.textSize.value = settings.textSize;
+                inputs.colorBlind.value = settings.colorBlind;
+                inputs.language.value = settings.language;
+                inputs.dateFormat.value = settings.dateFormat;
+                inputs.timeZone.value = settings.timeZone;
+                inputs.reducedMotion.checked = settings.reducedMotion;
+                inputs.soundFeedback.checked = settings.soundFeedback;
+                inputs.sendUsageStats.checked = settings.sendUsageStats;
+                inputs.autoSave.value = settings.autoSave;
+                inputs.accentColor.value = settings.accentColor;
+            }
+            function loadSettings() {
+                const saved = localStorage.getItem('userSettings');
+                if (saved) applySettings(JSON.parse(saved));
+                else {
+                    // Defaults
+                    const defTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    inputs.timeZone.value = defTZ;
+                    inputs.accentColor.value = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+                }
+            }
+            document.getElementById('saveSettings').addEventListener('click', () => {
+                const sel = inputs.mode();
+                const settings = {
+                    userName: inputs.userName.value.trim(),
+                    mode: sel ? sel.value : 'light',
+                    notifications: inputs.notifications.value,
+                    font: inputs.font.value,
+                    textSize: inputs.textSize.value,
+                    colorBlind: inputs.colorBlind.value,
+                    language: inputs.language.value,
+                    dateFormat: inputs.dateFormat.value,
+                    timeZone: inputs.timeZone.value,
+                    reducedMotion: inputs.reducedMotion.checked,
+                    soundFeedback: inputs.soundFeedback.checked,
+                    sendUsageStats: inputs.sendUsageStats.checked,
+                    autoSave: inputs.autoSave.value,
+                    accentColor: inputs.accentColor.value
+                };
+                localStorage.setItem('userSettings', JSON.stringify(settings));
+                applySettings(settings);
+                alert('Settings saved!');
+            });
+            loadSettings();
+        });
+    </script>
 </body>
 </html>
