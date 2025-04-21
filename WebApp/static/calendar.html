@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar App</title>
+    <link rel="stylesheet" href="calendar.css">
+    <script src="accessibility.js" defer></script>
+
+</head>
+<body>
+    <header>
+        <h1>Calendar</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="editor.html">Editor</a></li>
+                <li><a href="chatbot.html">EduNova AI</a></li>
+                <li><a href="assignments.html">Assignments</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="scheduler.html">Scheduler</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<div class="calendar-container">
+    <div class="calendar-header">
+        <button id="prevMonth">&#9665;</button>
+        <h2 id="currentMonth">March 2025</h2>
+        <button id="nextMonth">&#9655;</button>
+    </div>
+    <div class="calendar-grid">
+        <div class="weekdays">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="days" id="daysContainer">
+            <!-- Days will be generated dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Event Creation Modal -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="document.getElementById('eventModal').style.display='none'">&times;</span>
+        <h2>Create Event</h2>
+
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" placeholder="Enter event name">
+
+        <label for="eventDate">Select Date:</label>
+        <input type="date" id="eventDate">
+
+        <label for="eventType">Event Type:</label>
+        <select id="eventType">
+            <option value="meeting">Meeting</option>
+            <option value="birthday">Birthday</option>
+            <option value="reminder">Reminder</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="reminder">Reminder:</label>
+        <select id="reminder">
+            <option value="none">No Reminder</option>
+            <option value="email">Email Reminder</option>
+            <option value="phone">Phone Reminder</option>
+        </select>
+
+        <button id="saveEvent">Save Event</button>
+    </div>
+</div>
+
+<!-- Event List Modal -->
+<div id="eventListModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="document.getElementById('eventListModal').style.display='none'">&times;</span>
+        <div id="eventList"></div>
+    </div>
+</div>
+
+<script src="calendar.js"></script>
+</body>
+</html>
