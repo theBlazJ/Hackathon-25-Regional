@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
+    <!-- Global stylesheet for unified navbar -->
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --bg-light: #f5f5f5;
@@ -28,26 +30,6 @@
         .reduced-motion * {
             transition-duration: 0 !important;
             animation-duration: 0 !important;
-        }
-        header {
-            background: var(--primary);
-            color: #fff;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-            margin: 0;
-            padding: 0;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
         }
         main {
             max-width: 600px;
@@ -162,7 +144,7 @@
             </fieldset>
             <!-- New Settings -->
             <fieldset>
-                <legend>Language & Locale</legend>
+                <legend>Language & Locale</nlegend>
                 <label for="languageSelector">Language:</label>
                 <select id="languageSelector">
                     <option value="en">English</option>
