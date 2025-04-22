@@ -1,1 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduNova - One Platform. All Knowledge.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #007bff;
+      --primary-dark: #0056b3;
+      --accent: #00bcd4;
+      --light-bg: #f8f9fa;
+      --dark-text: #212529;
+      --section-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      color: var(--dark-text);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin: 0.2em 0;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+      font-style: italic;
+    }
+
+    nav {
+      background-color: var(--primary-dark);
+      padding: 0.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: var(--primary);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    section {
+      background-color: var(--section-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-dark);
+    }
+
+    section ul {
+      text-align: left;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+
+    section ul li {
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .divider {
+      margin: 2rem auto;
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary);
+      border: none;
+    }
+
+    .button {
+      background-color: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0097a7;
+    }
+
+    .team-member {
+      display: inline-block;
+      width: 150px;
+      margin: 1rem;
+      text-align: center;
+    }
+
+    .team-member .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ddd;
+      background-size: cover;
+      background-position: center;
+      margin: 0 auto 0.5rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-member p {
+      margin: 0.3rem 0;
+    }
+
+    footer {
+      background-color: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>EduNova</h1>
+  <p>One platform. All knowledge.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#why"><i class="fas fa-lightbulb"></i> Why EduNova</a></li>
+    <li><a href="#demo"><i class="fas fa-play-circle"></i> Live Demo</a></li>
+    <li><a href="#pricing"><i class="fas fa-euro-sign"></i> Pricing</a></li>
+    <li><a href="#future"><i class="fas fa-rocket"></i> Future Plans</a></li>
+    <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="why">
+    <h2>Why EduNova?</h2>
+    <p>Modern learning is fragmented and frustrating. EduNova combines LMS, a text editor, and an AI chatbot in one intuitive platform — designed for both teachers and students.</p>
+    <ul>
+      <li><strong>One login, unified workflow:</strong> everything in one place.</li>
+      <li><strong>AI support:</strong> tailored to your needs.</li>
+      <li><strong>Accessibility:</strong> inclusive design for diverse learners.</li>
+      <li><strong>Clear deadlines:</strong> no more searching through email threads.</li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="demo">
+    <h2>Live Demo</h2>
+    <p>Experience EduNova in action and see how it can simplify your workflow!</p>
+    <a class="button" href="https://pitch.com/">Try the Demo</a>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="pricing">
+    <h2>Pricing & Privacy</h2>
+    <ul>
+      <li>€0.80 / month per student</li>
+      <li>No data harvesting – we protect your privacy</li>
+      <li>Pricing adaptable by region</li>
+      <li>Profitable for schools – €150/month at 500 students</li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="future">
+    <h2>Future Plans</h2>
+    <ul>
+      <li>Smart board integration</li>
+      <li>Enhanced accessibility (e.g., dyslexia support)</li>
+      <li>In-house language model trained on educational data</li>
+      <li>Own server infrastructure for independence and lower cost</li>
+      <li>Partnerships with publishers for textbook integration</li>
+    </ul>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="team">
+    <h2>Meet the Team</h2>
+    <div class="team-member">
+      <div class="avatar" style="background-image: url('images/izidor.png');"></div>
+      <p><strong>Izidor Zadravec Obu</strong></p>
+      <p>Developer, Presenter</p>
+    </div>
+    <div class="team-member">
+      <div class="avatar" style="background-image: url('images/dorian.png');"></div>
+      <p><strong>Dorian Karpov</strong></p>
+      <p>Developer, Presenter</p>
+    </div>
+    <div class="team-member">
+      <div class="avatar" style="background-image: url('images/vuk.png');"></div>
+      <p><strong>Vuk Jovićević</strong></p>
+      <p>Developer, Media</p>
+    </div>
+    <div class="team-member">
+      <div class="avatar" style="background-image: url('images/blaz.png');"></div>
+      <p><strong>Blaž Jesenik</strong></p>
+      <p>Developer</p>
+    </div>
+    <div class="team-member">
+      <div class="avatar" style="background-image: url('images/luka.png');"></div>
+      <p><strong>Luka Heric</strong></p>
+      <p>Developer</p>
+    </div>
+    <p><em>II. gimnazija Maribor</em></p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 EduNova. All rights reserved. | We Take Showers Daily 🚿</p>
+</footer>
+
+</body>
+</html>
 
