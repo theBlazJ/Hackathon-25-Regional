@@ -1,14 +1,4 @@
 # Hackathon25
-                                                                                                                                                                      
-                                                                                                                                                                      
-                                      __      _           _                
-                                     /  |    | |         | |               
-__      _____  __      _____  _ __   `| | ___| |_   _ __ | | __ _  ___ ___ 
-\ \ /\ / / _ \ \ \ /\ / / _ \| '_ \   | |/ __| __| | '_ \| |/ _` |/ __/ _ \
- \ V  V /  __/  \ V  V / (_) | | | | _| |\__ \ |_  | |_) | | (_| | (_|  __/
-  \_/\_/ \___|   \_/\_/ \___/|_| |_| \___/___/\__| | .__/|_|\__,_|\___\___|
-                                                   | |                     
-                                                   |_|                     
 
 node js: version
 
@@ -46,5 +36,3 @@ Room for improvement of EduNova
 - Ai to help cater the educational needs of gifted and special needs students
 - offering insights to student behaviour to teachers
 - emotional wellbeing tests and/or features
-
-WE FUCKING WONNNNN
